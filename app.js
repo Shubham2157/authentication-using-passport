@@ -20,6 +20,7 @@ app.use(require('express-session')({
 app.use(passport.initialize());
 app.use(passport.session());
 
+passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
@@ -56,10 +57,20 @@ app.post("/register", (req,res) => {
     })
 });
 
-// login route]
+// login route
 app.get("/login", (req,res) => {
     res.render("login");
 })
+
+// login logic
+                    // middleware
+app.post("/login", passport.authenticate("local", {
+    successRedirect: "/secret",
+    failureRedirect: "/login",
+    failureMessage: "Invalid Username or password"
+}) , (req,res) => {
+})
+
 
 const PORT = 3500
 app.listen(PORT, ()=>{
