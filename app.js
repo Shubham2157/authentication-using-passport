@@ -23,13 +23,29 @@ app.use(passport.session());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+//===========
+//Routes
+//===========
+
 app.get("/", (req,res) => {
     res.render("home")
-})
+});
 
 app.get("/secret", (req,res) => {
     res.render("secret")
-})
+});
+
+//auth routes
+
+// show sign up form
+app.get("/register", (req,res) => {
+    res.render("register")
+});
+
+//handelling user sign up
+app.post("/register", (req,res) => {
+    res.send("register post route")
+});
 
 const PORT = 3500
 app.listen(PORT, ()=>{
