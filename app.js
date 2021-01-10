@@ -56,6 +56,11 @@ app.post("/register", (req,res) => {
     })
 });
 
+// login route]
+app.get("/login", (req,res) => {
+    res.render("login");
+})
+
 const PORT = 3500
 app.listen(PORT, ()=>{
     console.log(`Server started at ${PORT}`);
