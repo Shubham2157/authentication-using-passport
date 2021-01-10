@@ -71,6 +71,11 @@ app.post("/login", passport.authenticate("local", {
 }) , (req,res) => {
 })
 
+//logout
+
+app.get("/logout", (req,res){
+    console.log("Logout")
+})
 
 const PORT = 3500
 app.listen(PORT, ()=>{
