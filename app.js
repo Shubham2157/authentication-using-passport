@@ -11,7 +11,7 @@ mongoose.connect("mongodb://localhost/auth_demo_app")
 
 const app = express();
 app.set('view engine', 'ejs');
-
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(require('express-session')({
     secret: "Mai hun Don",
     resave: false,
@@ -42,9 +42,18 @@ app.get("/register", (req,res) => {
     res.render("register")
 });
 
-//handelling user sign up
+//handelling user sign up 
 app.post("/register", (req,res) => {
-    res.send("register post route")
+    // res.send("register post route")
+    User.register(new User({username: req.body.username}), req.body.password, (err, user) => {
+        if(err){
+            console.log(err);
+            return res.render('register');
+        }
+        passport.authenticate("local")(req,res, ()=> {
+            res.redirect("/secret");
+        })
+    })
 });
 
 const PORT = 3500
