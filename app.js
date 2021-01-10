@@ -74,7 +74,9 @@ app.post("/login", passport.authenticate("local", {
 //logout
 
 app.get("/logout", (req,res) => {
-    console.log("Logout")
+    // console.log("Logout")
+    req.logOut();
+    res.redirect("/");
 })
 
 const PORT = 3500
